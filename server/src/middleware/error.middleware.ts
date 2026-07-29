@@ -1,20 +1,32 @@
 import { NextFunction, Request, Response } from "express";
 import ApiError from "../utils/ApiError.js";
+import { ZodError, type ZodIssue } from "zod";
 
 const errorHandler = (
-    err: Error | ApiError,
+    err: Error | ApiError | ZodError,
     req: Request,
-    res:Response,
+    res: Response,
     next: NextFunction
 ) => {
-    const statusCode = err instanceof ApiError ? err.statusCode: 500;
+    let statusCode = err instanceof ApiError ? err.statusCode : 500;
+    let message = err.message || "Internal Server Error";
+    let errors: unknown[] = [];
 
-    const message = err.message || "Internal Server Error";
+    if (err instanceof ApiError) {
+        errors = err.errors;
+    } else if (err instanceof ZodError) {
+        statusCode = 400;
+        message = "Validation Error";
+        errors = err.issues.map((e: ZodIssue) => ({
+            field: e.path.join("."),
+            message: e.message
+        }));
+    }
 
     res.status(statusCode).json({
-        success:false,
+        success: false,
         message,
-        errors: err instanceof ApiError ? err.errors : [],
+        errors,
         stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
     });
 };
