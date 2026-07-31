@@ -134,18 +134,21 @@ model PremiumPayment {
   policyId         String
 
   amount           Decimal         @db.Decimal(12, 2)
-
-  paymentDate      DateTime
-  paymentMethod    PaymentMethod
+  dueDate          DateTime
+  paymentDate      DateTime?
+  paymentMethod    PaymentMethod?
 
   transactionId    String?
 
   status           PaymentStatus   @default(PENDING)
 
+  billingCycle     String?
+
   policy           Policy          @relation(fields: [policyId], references: [id], onDelete: Cascade)
 
   createdAt        DateTime        @default(now())
 
+  @@unique([policyId, dueDate])
   @@index([policyId])
   @@index([status])
 }
