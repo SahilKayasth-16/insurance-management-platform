@@ -6,6 +6,7 @@ import customerRoutes from "./modules/customers/routes/customer.routes.js";
 import policyRoutes from "./modules/policies/routes/policy.routes.js";
 import paymentRoutes from "./modules/payments/routes/payment.routes.js";
 import claimRoutes from "./modules/claims/claim.routes.js";
+import documentRoutes from "./modules/documents/document.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -38,6 +39,7 @@ app.use("/api/customers", customerRoutes);
 app.use("/api/policies", policyRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/claims", claimRoutes);
+app.use("/api/documents", documentRoutes);
 
 //GLOBAL ERROR HANDLER
 app.use(errorHandler);
