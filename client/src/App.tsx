@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthStore } from "./store/auth.store.js";
 import LoginPage from "./pages/Login/index.js";
+import RegisterPage from "./pages/Register/index.js";
 import UnauthorizedPage from "./pages/Unauthorized/index.js";
 import NotFoundPage from "./pages/NotFound/index.js";
 
@@ -57,6 +58,7 @@ function App() {
                 {/* Public Routes */}
                 <Route element={<PublicRoute />}>
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
                     <Route path="/" element={<Navigate to="/login" replace />} />
                 </Route>
 

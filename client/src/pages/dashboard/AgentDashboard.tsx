@@ -9,6 +9,7 @@ import { getClaimsApi } from "../../api/claims.api.js";
 import { getPaymentsApi } from "../../api/payments.api.js";
 import { useAuth } from "../../hooks/useAuth.js";
 import type { AgentDashboardStats } from "../../api/dashboard.api.js";
+import type { Policy, Claim } from "../../types/business.js";
 
 import { StatCard } from "../../components/dashboard/StatCard.js";
 import { ChartCard } from "../../components/dashboard/ChartCard.js";
@@ -26,9 +27,9 @@ export const AgentDashboard: React.FC = () => {
     const [monthlyCollections, setMonthlyCollections] = useState<number[]>(new Array(12).fill(0));
 
     // Widgets states
-    const [recentPolicies, setRecentPolicies] = useState<any[]>([]);
-    const [pendingClaims, setPendingClaims] = useState<any[]>([]);
-    const [upcomingRenewals, setUpcomingRenewals] = useState<any[]>([]);
+    const [recentPolicies, setRecentPolicies] = useState<Policy[]>([]);
+    const [pendingClaims, setPendingClaims] = useState<Claim[]>([]);
+    const [upcomingRenewals, setUpcomingRenewals] = useState<Policy[]>([]);
     const [widgetLoading, setWidgetLoading] = useState(true);
 
     useEffect(() => {

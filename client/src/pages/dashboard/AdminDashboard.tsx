@@ -9,6 +9,7 @@ import { getClaimsApi } from "../../api/claims.api.js";
 import { getPaymentsApi } from "../../api/payments.api.js";
 import { getCustomersApi } from "../../api/customers.api.js";
 import type { AdminDashboardStats } from "../../api/dashboard.api.js";
+import type { Policy, Claim, PremiumPayment, Customer } from "../../types/business.js";
 
 import { StatCard } from "../../components/dashboard/StatCard.js";
 import { ChartCard } from "../../components/dashboard/ChartCard.js";
@@ -20,10 +21,10 @@ export const AdminDashboard: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     // Recent items states
-    const [recentPolicies, setRecentPolicies] = useState<any[]>([]);
-    const [recentClaims, setRecentClaims] = useState<any[]>([]);
-    const [recentPayments, setRecentPayments] = useState<any[]>([]);
-    const [recentCustomers, setRecentCustomers] = useState<any[]>([]);
+    const [recentPolicies, setRecentPolicies] = useState<Policy[]>([]);
+    const [recentClaims, setRecentClaims] = useState<Claim[]>([]);
+    const [recentPayments, setRecentPayments] = useState<PremiumPayment[]>([]);
+    const [recentCustomers, setRecentCustomers] = useState<Customer[]>([]);
     const [recentLoading, setRecentLoading] = useState(true);
 
     useEffect(() => {

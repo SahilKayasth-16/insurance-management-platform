@@ -8,6 +8,8 @@ import { getClaimsApi } from "../../api/claims.api.js";
 import { getDocumentsApi } from "../../api/documents.api.js";
 import { useAuth } from "../../hooks/useAuth.js";
 
+import type { Policy, PremiumPayment, Claim, DocumentRecord } from "../../types/business.js";
+
 import Card from "../../components/Card.js";
 import { StatCard } from "../../components/dashboard/StatCard.js";
 import { ChartCard } from "../../components/dashboard/ChartCard.js";
@@ -30,13 +32,13 @@ export const CustomerDashboard: React.FC = () => {
     const [documentsCount, setDocumentsCount] = useState(0);
 
     // Lists for charts & widgets
-    const [customerPolicies, setCustomerPolicies] = useState<any[]>([]);
+    const [customerPolicies, setCustomerPolicies] = useState<Policy[]>([]);
     const [monthlyPaymentHistory, setMonthlyPaymentHistory] = useState<number[]>(new Array(12).fill(0));
     
     // Widgets states
-    const [upcomingPremiumDues, setUpcomingPremiumDues] = useState<any[]>([]);
-    const [latestClaims, setLatestClaims] = useState<any[]>([]);
-    const [latestDocs, setLatestDocs] = useState<any[]>([]);
+    const [upcomingPremiumDues, setUpcomingPremiumDues] = useState<PremiumPayment[]>([]);
+    const [latestClaims, setLatestClaims] = useState<Claim[]>([]);
+    const [latestDocs, setLatestDocs] = useState<DocumentRecord[]>([]);
     const [widgetLoading, setWidgetLoading] = useState(true);
 
     useEffect(() => {

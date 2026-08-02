@@ -24,3 +24,11 @@ export const getCurrentUserApi = async (): Promise<CurrentUserResponse> => {
     const response = await axiosInstance.get<CurrentUserResponse>("/auth/me");
     return response.data;
 };
+
+/**
+ * Register a new user account.
+ */
+export const registerApi = async (data: any): Promise<any> => {
+    const response = await axiosInstance.post<any>("/auth/register", data);
+    return response.data;
+};

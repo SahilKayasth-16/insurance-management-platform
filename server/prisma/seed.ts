@@ -8,7 +8,7 @@ async function main() {
     console.table(await prisma.user.findMany());
 
     const hashedAdminPassword = await bcrypt.hash("Adminsk@16", 10);
-    const hashedAgentPassword = await bcrypt.hash("Adminds@10", 10);
+    const hashedAgentPassword = await bcrypt.hash("Agentds@10", 10);
 
     const admin = await prisma.user.upsert({
         where: {
@@ -28,12 +28,14 @@ async function main() {
 
     const agent = await prisma.user.upsert({
         where: {
-            email: "agent@test.com",
+            email: "agentds@test.com",
         },
-        update: {},
+        update: {
+            password: hashedAgentPassword
+        },
         create: {
             name: "Insurance Agent",
-            email: "agent@test.com",
+            email: "agentds@test.com",
             password: hashedAgentPassword,
             role: "AGENT",
         },
