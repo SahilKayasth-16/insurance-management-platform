@@ -5,13 +5,16 @@ import { PrismaClient } from "../generated/prisma/client.js";
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL!,
-})
+    ssl : {
+        rejectUnauthorized: false
+    },
+});
 
 const adapter = new PrismaPg(pool);
 
 const prisma = new PrismaClient({ 
     adapter,
-    log: ["query", "error"] 
+    log: process.env.NODE_ENV === "development" ? ["query", "error"] : ["error"]
 });
 
 export default prisma;
