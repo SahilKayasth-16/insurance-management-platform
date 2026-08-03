@@ -79,6 +79,7 @@ export interface PremiumPayment {
     policyNumber?: string | null;
     customerName?: string | null;
     createdAt?: string;
+    policy?: Policy;
 }
 
 export type ClaimStatus = "PENDING" | "APPROVED" | "REJECTED";

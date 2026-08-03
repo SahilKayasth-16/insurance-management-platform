@@ -389,10 +389,10 @@ export const PaymentsList: React.FC = () => {
                 <form onSubmit={handleSubmit(onRecordPayment)} className="space-y-4">
                     {role === "CUSTOMER" ? (
                         <FormInput
-                            label="Policy CUID / Reference"
-                            placeholder="Enter your policy identifier"
+                            label="Policy Number / CUID"
+                            placeholder="e.g. POL-20260731-0001 or policy ID"
                             error={errors.policyId?.message}
-                            {...register("policyId", { required: "Policy ID is required" })}
+                            {...register("policyId", { required: "Policy Number or CUID is required" })}
                         />
                     ) : (
                         <div className="flex flex-col space-y-1.5">
@@ -447,7 +447,7 @@ export const PaymentsList: React.FC = () => {
                                 { value: "CASH", label: "CASH" },
                                 { value: "CHEQUE", label: "CHEQUE" }
                             ]}
-                            error={errors.paymentMethod?.message}
+                            error={errors.paymentMethod?.message?.toString()}
                             {...register("paymentMethod", { required: "Payment method is required" })}
                         />
                         <FormInput

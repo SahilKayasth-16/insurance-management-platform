@@ -44,10 +44,10 @@ export const AdminDashboard: React.FC = () => {
                     getCustomersApi({ limit: 5 })
                 ]);
 
-                if (policiesRes.success) setRecentPolicies(policiesRes.data.policies);
-                if (claimsRes.success) setRecentClaims(claimsRes.data.claims);
-                if (paymentsRes.success) setRecentPayments(paymentsRes.data.payments);
-                if (customersRes.success) setRecentCustomers(customersRes.data.customers);
+                if (policiesRes.success) setRecentPolicies(policiesRes.data.policies || []);
+                if (claimsRes.success) setRecentClaims(claimsRes.data.claims || []);
+                if (paymentsRes.success) setRecentPayments(paymentsRes.data.payments || []);
+                if (customersRes.success) setRecentCustomers(customersRes.data.customers || []);
 
             } catch (err: any) {
                 toast.error(err.message || "Failed to load dashboard parameters.");

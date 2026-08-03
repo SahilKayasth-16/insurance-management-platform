@@ -16,7 +16,7 @@ const numericField = (fieldName: string) =>
 
 // CREATE PAYMENT VALIDATOR
 export const createPaymentSchema = z.object({
-    policyId: z.string({ message: "policyId is required" }).trim().cuid("Invalid policyId format (must be a valid CUID)"),
+    policyId: z.string({ message: "policyId is required" }).trim(),
     amount: numericField("Amount"),
     paymentDate: z
         .string({ message: "paymentDate is required" })

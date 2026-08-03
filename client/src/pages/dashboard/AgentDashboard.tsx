@@ -83,7 +83,7 @@ export const AgentDashboard: React.FC = () => {
                 // 4. Fetch pending claims
                 const claimsRes = await getClaimsApi({ status: "PENDING", limit: 5 });
                 if (claimsRes.success) {
-                    setPendingClaims(claimsRes.data.claims);
+                    setPendingClaims(claimsRes.data.claims || []);
                 }
 
             } catch (err: any) {

@@ -34,15 +34,16 @@ export interface AdminDashboardStats {
 }
 
 export interface AgentDashboardStats {
-    customers: number;
-    agents: number; // wait, is it in response? Let's check AgentDashboardResponse type on server
-    policies: number;
+    assignedPolicies: number;
     activePolicies: number;
     expiredPolicies: number;
     cancelledPolicies: number;
-    claims: DashboardClaimStats;
-    premium: DashboardPremiumStats;
-    monthlyGrowth: DashboardGrowthMonth[];
+    claims: {
+        pending: number;
+        approved: number;
+        rejected: number;
+    };
+    premiumCollected: number;
 }
 
 export interface MonthlyReportMetric {

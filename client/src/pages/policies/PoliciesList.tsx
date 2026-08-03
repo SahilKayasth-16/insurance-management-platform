@@ -119,7 +119,7 @@ export const PoliciesList: React.FC = () => {
                                 return {
                                     ...cp,
                                     ...detailRes.data.policy,
-                                    agent: detailRes.data.agent
+                                    agent: detailRes.data.policy.agent
                                 };
                             }
                         } catch (err) {
@@ -222,11 +222,11 @@ export const PoliciesList: React.FC = () => {
             if (role === "CUSTOMER") {
                 // Fetch full details via one of the payment slots
                 const detailRes = await getPaymentApi(policy.samplePaymentId || policy.id);
-                if (detailRes.success) {
+                if (detailRes.success && detailRes.data.policy) {
                     setSelectedPolicy({
                         ...detailRes.data.policy,
-                        agent: detailRes.data.agent,
-                        customer: detailRes.data.customer
+                        agent: detailRes.data.policy.agent,
+                        customer: detailRes.data.policy.customer
                     });
                 }
             } else {
@@ -631,7 +631,7 @@ export const PoliciesList: React.FC = () => {
                                 { value: "HOME", label: "HOME" },
                                 { value: "TRAVEL", label: "TRAVEL" }
                             ]}
-                            error={errorsCreate.policyType?.message}
+                            error={errorsCreate.policyType?.message?.toString()}
                             {...registerCreate("policyType", { required: "Policy type is required" })}
                         />
                     </div>

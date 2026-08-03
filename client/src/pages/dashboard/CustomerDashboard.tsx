@@ -96,7 +96,7 @@ export const CustomerDashboard: React.FC = () => {
                         return null;
                     });
 
-                    const policies = (await Promise.all(policyPromises)).filter(Boolean);
+                    const policies = (await Promise.all(policyPromises)).filter((p): p is Policy => p !== null);
                     setCustomerPolicies(policies);
 
                     const activeCount = policies.filter((p: any) => p.status === "ACTIVE").length;

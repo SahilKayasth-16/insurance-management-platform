@@ -8,6 +8,7 @@ import {
     getDocumentsQuerySchema
 } from "./document.validators.js";
 import fs from "fs";
+import prisma from "../../lib/prisma.js";
 
 /**
  * POST /api/documents
@@ -25,9 +26,19 @@ export const uploadDocument = asyncHandler(async (req: Request, res: Response) =
             throw new ApiError(400, "No file uploaded. Please upload a document file.");
         }
 
+        const user = req.user!;
+        if (user.role === "CUSTOMER") {
+            const customer = await prisma.customer.findUnique({
+                where: { userId: user.id }
+            });
+            if (!customer) {
+                throw new ApiError(404, "Customer profile not found.");
+            }
+            req.body.customerId = customer.id;
+        }
+
         // Validate text fields using Zod
         const validatedData = uploadDocumentSchema.parse(req.body);
-        const user = req.user!;
 
         const document = await documentService.uploadDocument(
             validatedData,

@@ -10,7 +10,7 @@ import SearchBar from "../../components/SearchBar.js";
 import Pagination from "../../components/Pagination.js";
 import Modal from "../../components/Modal.js";
 import ConfirmDialog from "../../components/ConfirmDialog.js";
-import { SelectInput } from "../../components/FormFields.js";
+import { SelectInput, FormInput } from "../../components/FormFields.js";
 
 import { getDocumentsApi, uploadDocumentApi, deleteDocumentApi, getDocumentApi } from "../../api/documents.api.js";
 import { getPaymentsApi, getPaymentApi } from "../../api/payments.api.js";
@@ -98,8 +98,8 @@ export const DocumentsList: React.FC = () => {
             const paymentsRes = await getPaymentsApi({ limit: 1 });
             if (paymentsRes.success && paymentsRes.data.payments && paymentsRes.data.payments.length > 0) {
                 const detailRes = await getPaymentApi(paymentsRes.data.payments[0].id);
-                if (detailRes.success && detailRes.data.customer) {
-                    setResolvedCustomerId(detailRes.data.customer.id);
+                if (detailRes.success && detailRes.data.policy?.customer) {
+                    setResolvedCustomerId(detailRes.data.policy.customer.id);
                 }
             }
         } catch (e) {
@@ -528,7 +528,7 @@ export const DocumentsList: React.FC = () => {
                             className="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 transition-all cursor-pointer font-medium"
                         />
                         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Allowed formats: PDF, PNG, JPG, JPEG (Max size: 5 MB)</span>
-                        {errors.file && <span className="text-xs font-medium text-rose-500">{errors.file.message}</span>}
+                        {errors.file && <span className="text-xs font-medium text-rose-500">{errors.file.message?.toString()}</span>}
                     </div>
 
                     <div className="mt-6 flex justify-end space-x-3 border-t border-slate-100 pt-4">

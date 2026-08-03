@@ -13,7 +13,7 @@ import Modal from "../../components/Modal.js";
 import ConfirmDialog from "../../components/ConfirmDialog.js";
 import { FormInput } from "../../components/FormFields.js";
 
-import { getUsersApi, createUserStatusApi, createAgentApi, updateUserStatusApi } from "../../api/users.api.js";
+import { getUsersApi, createAgentApi, updateUserStatusApi } from "../../api/users.api.js";
 import type { User } from "../../types/auth.js";
 import type { PaginationInfo } from "../../types/business.js";
 

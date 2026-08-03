@@ -41,7 +41,7 @@ export const ReportsPage: React.FC = () => {
         );
     }
 
-    const columns: Column<MonthlyReportMetric>[] = [
+    const columns: Column<MonthlyReportMetric & { id: string }>[] = [
         { key: "month", label: "Month" },
         { 
             key: "newCustomersCount", 
@@ -143,7 +143,7 @@ export const ReportsPage: React.FC = () => {
                 </div>
                 <DataTable
                     columns={columns}
-                    data={report?.metrics || []}
+                    data={(report?.metrics || []).map(m => ({ ...m, id: m.month }))}
                 />
             </Card>
         </div>

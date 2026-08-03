@@ -146,8 +146,13 @@ const formatPayment = (payment: any) => {
  */
 export const recordPayment = async (data: CreatePaymentInput, user: any) => {
     // 1. Verify policy exists
-    const policy = await prisma.policy.findUnique({
-        where: { id: data.policyId },
+    const policy = await prisma.policy.findFirst({
+        where: {
+            OR: [
+                { id: data.policyId },
+                { policyNumber: data.policyId }
+            ]
+        },
         include: {
             customer: {
                 select: {
@@ -183,12 +188,12 @@ export const recordPayment = async (data: CreatePaymentInput, user: any) => {
     }
 
     // 5. Ensure schedules are synchronized
-    await syncPolicySchedule(data.policyId);
+    await syncPolicySchedule(policy.id);
 
     // 6. Find oldest PENDING payment slot
     const oldestPending = await prisma.premiumPayment.findFirst({
         where: {
-            policyId: data.policyId,
+            policyId: policy.id,
             status: "PENDING"
         },
         orderBy: {

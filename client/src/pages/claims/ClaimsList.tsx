@@ -473,7 +473,7 @@ export const ClaimsList: React.FC = () => {
                             { value: "APPROVED", label: "APPROVE CLAIM" },
                             { value: "REJECTED", label: "REJECT CLAIM" }
                         ]}
-                        error={errorsReview.status?.message}
+                        error={errorsReview.status?.message?.toString()}
                         {...registerReview("status", { required: "Status decision is required" })}
                     />
 
