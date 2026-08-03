@@ -16,7 +16,7 @@ const app = express();
 //MIDDLEWARE
 app.use(
     cors({
-        origin: [ "http://localhost:5173", "https://insurance-management-platform-mu.vercel.app" ],
+        origin: [ "http://localhost:5173", "https://secure-shield-insurance-platform.vercel.app" ],
         credentials: true
     })
 );
